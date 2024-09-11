@@ -1,37 +1,81 @@
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
-    body {
-	overflow: hidden;
-	font-family: "SUSE", sans-serif;
-	    
+    
+/* Defining the entire site, using the whole viewport */
+.curtain {
+  width: 100vw; 
+  height: 100vh; 
+   overflow: hidden; /* On the initial example it has overflow hidden but I commented it out so the user can see a bit of the menu at the top of the screen*/
 }
-div#opening {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	animation: open 3s linear infinite;
-	background: radial-gradient( circle 100vw at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 5%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 100% );
+.curtain__wrapper {
+  width: 100%;
+  height: 100%;
 }
-@keyframes open {
-	0% {
-		display: inline-block;
-		transform: scale( 1, 1 );
-	}
-	100% {
-		display: inline-block;
-		transform: scale( 20, 20 );
-	}
+/* This is the slide down menu from the top. It takes up the whole container. Z-index is 2 so that it can slide down on top of the website */
+.curtain__panel {
+  background: orange;
+  width: 100vw; 
+  height: 100vh;
+  position: absolute; 
+  z-index: 2; 
+  transition: all 1s ease-out;
 }
+/* Slide the panel to the top out of the container. It is 90% so that you can still see part of the menu */
+.curtain__panel--left {
+  transform: translateY(-90%);
+}
+.curtain__prize {
+  background: #333;
+  position: absolute; 
+  z-index: 1; 
+  width: 100%;
+  height: 100%;
+}
+/* This checkbox makes the whole container clickable and puts it on top of everything else */
+input[type=checkbox] {
+  position: absolute; 
+  cursor: pointer; 
+  width: 100%; 
+  height: 100%; 
+  z-index: 100; 
+  opacity: 0; 
+}
+        
+/* Sliding menu originally starts with the check box checked. This shows 10% of the menu at the top. */
+
+/* When the user first clicks the website the checkbox becomes unchecked and the menu moves down */
+
+input[type=checkbox]:not(:checked) ~ div.curtain__panel--left {
+  transform: translateY(0);
+}
+.curtain__prize p, .curtain__panel--left p {
+  text-align: center;
+  padding:4em;
+  font-family: 'SUSE', sans-serif;
+  color: white;
+  font-size: 3em;
+}
+
 </style>
 
 
-<div id="opening"></div>
+<div class="curtain">
+	
+	<div class="curtain__wrapper">
+  <!--   This check box will span the entire viewport for now so that the user can click anywhere on the screen and access the menu   -->
+	  <input type="checkbox" checked> 
+  <!-- This is initially hidden  -->
+	  <div class="curtain__panel curtain__panel--left">
+		<p>Welcome to ashfieldtimetable.github.io!</p>
+	  </div>
+  <!--   This is the opening screen of the site   -->
+	  <div class="curtain__prize">
+		<p>Put your full name in lowercases after the last slash (/) in the URL <br>
+			Example: "ashfieldtimetable.github.io/johndoe"</p>
+	  </div>
+	   
+	</div>
+  
+  </div>
 
-<center>
-<h1> Welcome to ashfieldtimetable.github.io!</h1>
-<p>Put your full name in lowercases after the last slash (/) in the URL <br>
-    Example: "ashfieldtimetable.github.io/johndoe"
-</p>
-</center>
+
